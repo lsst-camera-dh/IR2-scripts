@@ -9,7 +9,7 @@
 Now=$(date +"%Y%m%d")
 
 # Find uncompressed files (well, files without the compressed attribute)
-find /gpfs/slac/lsst/fs3/g/data/ -name "*.fits" -type f -exec ~/bin/find-fpack "{}" + > ~/fpacking/cronjob/mtime.$Now.txt
+find /gpfs/slac/lsst/fs3/g/data/ -name "*.fits" -type f -exec ~/bin/find-fpack.sh "{}" + > ~/fpacking/cronjob/mtime.$Now.txt
 
 # Compress the files we just found
 cat ~/fpacking/cronjob/mtime.$Now.txt | parallel --joblog ~/fpacking/cronjob/joblog.$Now.txt -j 5 ~/bin/fpackafile.sh > ~/fpacking/cronjob/mtime.$Now.log
